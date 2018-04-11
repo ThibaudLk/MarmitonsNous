@@ -1,12 +1,13 @@
 package fr.eni.ecole.marmitonsnous.beans;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
  * Created by mmalenfant2016 on 09/04/2018.
  */
 
-public class Recette {
+public class Recette implements Serializable {
 
     private int idRecette;
     private String titre;
