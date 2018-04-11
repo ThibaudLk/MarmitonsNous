@@ -68,8 +68,6 @@
             android:ems="10"
             android:id="@+id/editDifficulte" />
 
-
-
         <Button
             android:id="@+id/uploadImage"
             android:layout_width="match_parent"

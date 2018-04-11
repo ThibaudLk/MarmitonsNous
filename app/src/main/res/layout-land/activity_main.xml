@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="horizontal"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
@@ -9,8 +10,8 @@
         android:layout_weight="0.5"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        class="fr.eni.ecole.marmitonsnous.fragment.ListeRecetteActivityFragment"
-        />
+        class="fr.eni.ecole.marmitonsnous.fragment.ListeRecetteActivityFragment" />
+
 
     <fragment
         android:id="@+id/second"
@@ -18,8 +19,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_margin="8dp"
-        class="fr.eni.ecole.marmitonsnous.fragment.DetailRecetteFragment"
-        />
+        class="fr.eni.ecole.marmitonsnous.fragment.DetailRecetteFragment" />
 
 
 </LinearLayout>

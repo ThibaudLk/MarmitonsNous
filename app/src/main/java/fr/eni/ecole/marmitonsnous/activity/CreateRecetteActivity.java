@@ -18,6 +18,7 @@ import fr.eni.ecole.marmitonsnous.R;
 import fr.eni.ecole.marmitonsnous.beans.Etape;
 import fr.eni.ecole.marmitonsnous.beans.Ingredient;
 import fr.eni.ecole.marmitonsnous.beans.Recette;
+import fr.eni.ecole.marmitonsnous.fragment.DetailRecetteFragment;
 
 public class CreateRecetteActivity extends AppCompatActivity {
 
@@ -30,7 +31,6 @@ public class CreateRecetteActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.create_recette);
-        Log.v("nimportkoi", RecetteDAO.SQL_CREATE_TABLE);
         holder = new ViewHolder();
 
         holder.titre = (TextView) findViewById(R.id.editTitre);
@@ -86,7 +86,7 @@ public class CreateRecetteActivity extends AppCompatActivity {
                 if (isNew) {
                     recetteDAO.insert(recette);
                 } else recetteDAO.update(recette);
-                Intent returnIntent = new Intent();
+                Intent returnIntent = new Intent(this, DetailRecetteFragment.class);
                 returnIntent.putExtra("recette", (Serializable) recette);
                 setResult(RESULT_OK,returnIntent);
                 finish();
