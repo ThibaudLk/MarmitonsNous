@@ -5,6 +5,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
+import fr.eni.ecole.marmitonsnous.DAO.EtapeDAO;
 import fr.eni.ecole.marmitonsnous.DAO.RecetteDAO;
 import fr.eni.ecole.marmitonsnous.beans.Recette;
 
@@ -23,13 +24,15 @@ public class GestionBddHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        Log.v("truc", RecetteDAO.SQL_CREATE_TABLE);
+        //Log.v("truc", RecetteDAO.SQL_CREATE_TABLE);
         db.execSQL(RecetteDAO.SQL_CREATE_TABLE);
+        db.execSQL(EtapeDAO.SQL_CREATE_TABLE);
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL(RecetteDAO.SQL_DROP_TABLE);
+        db.execSQL(EtapeDAO.SQL_DROP_TABLE);
         onCreate(db);
     }
 }

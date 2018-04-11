@@ -26,21 +26,13 @@ import fr.eni.ecole.marmitonsnous.fragment.ListeRecetteActivityFragment;
 public class ListeRecetteActivity extends AppCompatActivity
         implements ListeRecetteActivityFragment.OnListFragmentInteractionListener, DetailRecetteFragment.OnFragmentInteractionListener {
 
+    static final int ADD_RECETTE = 2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        // bouton d'ajout d'une recette
-        /*FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });*/
     }
 
     @Override
@@ -58,7 +50,9 @@ public class ListeRecetteActivity extends AppCompatActivity
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        if (id == R.id.menu_add) {
+            Intent intentAdd = new Intent(this, CreateRecetteActivity.class);
+            startActivity(intentAdd);
             return true;
         }
 
