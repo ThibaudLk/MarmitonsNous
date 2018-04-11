@@ -17,7 +17,7 @@ import fr.eni.ecole.marmitonsnous.provider.GestionBddHelper;
  * Created by mmalenfant2016 on 10/04/2018.
  */
 
-class EtapeDAO {
+public class EtapeDAO {
 
     //Représente la connexion.
     private static SQLiteDatabase db;
