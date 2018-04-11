@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="fr.eni.ecole.marmitonsnous.activity.CreateRecetteActivity">
+
+    <item
+        android:id="@+id/menu_valider_changement"
+        android:icon="@android:drawable/ic_menu_save"
+        android:title=""
+        app:showAsAction="always" />
+
+
+    <item
+        android:id="@+id/action_settings"
+        android:orderInCategory="100"
+        android:title=""
+        app:showAsAction="never" />
+
+</menu>
