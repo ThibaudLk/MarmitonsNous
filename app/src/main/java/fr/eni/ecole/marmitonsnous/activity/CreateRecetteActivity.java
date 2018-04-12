@@ -3,21 +3,27 @@ package fr.eni.ecole.marmitonsnous.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
+import fr.eni.ecole.marmitonsnous.DAO.EtapeDAO;
 import fr.eni.ecole.marmitonsnous.DAO.RecetteDAO;
 import fr.eni.ecole.marmitonsnous.R;
+import fr.eni.ecole.marmitonsnous.adapter.ListeEtapeAdapter;
 import fr.eni.ecole.marmitonsnous.beans.Etape;
 import fr.eni.ecole.marmitonsnous.beans.Ingredient;
 import fr.eni.ecole.marmitonsnous.beans.Recette;
+import fr.eni.ecole.marmitonsnous.component.NonScrollListView;
 import fr.eni.ecole.marmitonsnous.fragment.DetailRecetteFragment;
 
 public class CreateRecetteActivity extends AppCompatActivity {
@@ -26,11 +32,17 @@ public class CreateRecetteActivity extends AppCompatActivity {
     Etape etape;
     Ingredient ingredient;
     ViewHolder holder;
+    int nbEtape;
+    List<Etape> listEtape;
+    NonScrollListView listViewEtape;
+    ListeEtapeAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.create_recette);
+        nbEtape = 0;
+        listEtape = new ArrayList<Etape>();
         holder = new ViewHolder();
 
         holder.titre = (TextView) findViewById(R.id.editTitre);
@@ -38,6 +50,11 @@ public class CreateRecetteActivity extends AppCompatActivity {
         holder.temps = (TextView) findViewById(R.id.editTemps);
         holder.nombrePersonne = (TextView) findViewById(R.id.editPersonnes);
         holder.difficulte = (TextView) findViewById(R.id.editDifficulte);
+
+        listViewEtape = (NonScrollListView) findViewById(R.id.listeEtape);
+
+        adapter = new ListeEtapeAdapter(this, R.layout.add_etape_line_adapter ,listEtape);
+        listViewEtape.setAdapter(adapter);
 
         Button photo = (Button) findViewById(R.id.uploadImage);
 
@@ -47,6 +64,19 @@ public class CreateRecetteActivity extends AppCompatActivity {
                 Intent photoPickerIntent = new Intent(Intent.ACTION_PICK);
                 photoPickerIntent.setType("image/*");
                 startActivityForResult(photoPickerIntent, 1);
+            }
+        });
+
+        ImageButton addEtape = (ImageButton) findViewById(R.id.addEtape);
+        addEtape.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                nbEtape++;
+                EditText ed = (EditText) findViewById(R.id.addDescriptionEtape);
+                Etape etape = new Etape(ed.getText().toString(), nbEtape);
+                listEtape.add(etape);
+                adapter.notifyDataSetChanged();
+                ed.setText("");
             }
         });
 
@@ -84,7 +114,12 @@ public class CreateRecetteActivity extends AppCompatActivity {
                 //recette.setPhoto(Integer.parseInt(holder.photo.toString()));
                 RecetteDAO recetteDAO = new RecetteDAO(CreateRecetteActivity.this);
                 if (isNew) {
-                    recetteDAO.insert(recette);
+                    int idRecette = (int) recetteDAO.insert(recette);
+                    EtapeDAO etapeDAO = new EtapeDAO(CreateRecetteActivity.this);
+                    for ( Etape etape : listEtape) {
+                        etape.setIdRecette(idRecette);
+                        etapeDAO.insert(etape);
+                    }
                 } else recetteDAO.update(recette);
                 Intent returnIntent = new Intent(this, DetailRecetteFragment.class);
                 returnIntent.putExtra("recette", (Serializable) recette);
@@ -117,6 +152,5 @@ public class CreateRecetteActivity extends AppCompatActivity {
         holder.difficulte.setText(Float.toString(recette.getDifficulte()));
 
     }
-
 
 }

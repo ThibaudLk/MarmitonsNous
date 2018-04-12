@@ -8,20 +8,22 @@ public class Etape {
 
     private int idEtape;
     private String nom;
+    private int numero;
     private int idRecette;
 
     public Etape() {
     }
 
-    public Etape(int idEtape, String nom, int idRecette) {
+    public Etape(int idEtape, String nom, int numero, int idRecette) {
         this.idEtape = idEtape;
         this.nom = nom;
+        this.numero = numero;
         this.idRecette = idRecette;
     }
 
-    public Etape(String nom, int idRecette) {
+    public Etape(String nom, int numero) {
         this.nom = nom;
-        this.idRecette = idRecette;
+        this.numero = numero;
     }
 
     public Etape(String nom) {
@@ -50,5 +52,13 @@ public class Etape {
 
     public void setIdRecette(int idRecette) {
         this.idRecette = idRecette;
+    }
+
+    public int getNumero() {
+        return numero;
+    }
+
+    public void setNumero(int numero) {
+        this.numero = numero;
     }
 }
