@@ -1,10 +1,12 @@
 package fr.eni.ecole.marmitonsnous.beans;
 
+import java.io.Serializable;
+
 /**
  * Created by mmalenfant2016 on 09/04/2018.
  */
 
-public class Etape {
+public class Etape implements Serializable {
 
     private int idEtape;
     private String nom;

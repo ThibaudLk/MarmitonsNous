@@ -12,7 +12,6 @@ import android.widget.ImageButton;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,7 +23,6 @@ import fr.eni.ecole.marmitonsnous.beans.Etape;
 import fr.eni.ecole.marmitonsnous.beans.Ingredient;
 import fr.eni.ecole.marmitonsnous.beans.Recette;
 import fr.eni.ecole.marmitonsnous.component.NonScrollListView;
-import fr.eni.ecole.marmitonsnous.fragment.DetailRecetteFragment;
 
 public class CreateRecetteActivity extends AppCompatActivity {
 
@@ -121,8 +119,8 @@ public class CreateRecetteActivity extends AppCompatActivity {
                         etapeDAO.insert(etape);
                     }
                 } else recetteDAO.update(recette);
-                Intent returnIntent = new Intent(this, DetailRecetteFragment.class);
-                returnIntent.putExtra("recette", (Serializable) recette);
+                Intent returnIntent = new Intent();
+                returnIntent.putExtra("recette", recette);
                 setResult(RESULT_OK,returnIntent);
                 finish();
                 return true;

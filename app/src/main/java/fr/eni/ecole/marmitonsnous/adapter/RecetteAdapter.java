@@ -5,15 +5,12 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.TextView;
 
 import java.util.List;
 
 import fr.eni.ecole.marmitonsnous.R;
-import fr.eni.ecole.marmitonsnous.activity.ListeRecetteActivity;
 import fr.eni.ecole.marmitonsnous.beans.Recette;
-import fr.eni.ecole.marmitonsnous.fragment.DetailRecetteFragment;
 import fr.eni.ecole.marmitonsnous.fragment.ListeRecetteActivityFragment;
 
 /**
@@ -82,5 +79,9 @@ private ListeRecetteActivityFragment.OnListFragmentInteractionListener onItemCli
                 }
             });
         }
+    }
+    public void add(Recette recette){
+        this.recettes.add(recette);
+        notifyDataSetChanged();
     }
 }

@@ -13,10 +13,11 @@ import android.view.ViewGroup;
 import java.util.ArrayList;
 import java.util.List;
 
+import fr.eni.ecole.marmitonsnous.DAO.EtapeDAO;
 import fr.eni.ecole.marmitonsnous.DAO.RecetteDAO;
 import fr.eni.ecole.marmitonsnous.R;
-import fr.eni.ecole.marmitonsnous.activity.ListeRecetteActivity;
 import fr.eni.ecole.marmitonsnous.adapter.RecetteAdapter;
+import fr.eni.ecole.marmitonsnous.beans.Etape;
 import fr.eni.ecole.marmitonsnous.beans.Recette;
 
 /**
@@ -26,6 +27,7 @@ public class ListeRecetteActivityFragment extends Fragment {
 
     // Liste des recettes à afficher
     static List<Recette> listRecettes;
+    RecetteAdapter adapter;
 
     // Nom d'un argument lié au fragment.
     private static final String ARG_COLUMN_COUNT = "column-count";
@@ -74,7 +76,7 @@ public class ListeRecetteActivityFragment extends Fragment {
                 chargerListeRecette(context);
 
                 // on utilise un adapter pour afficher les items de la liste
-                RecetteAdapter adapter = new RecetteAdapter(listRecettes, mListener);
+                adapter = new RecetteAdapter(listRecettes, mListener);
                 listViewRecette.setAdapter(adapter);
             }
             return view;
@@ -90,6 +92,9 @@ public class ListeRecetteActivityFragment extends Fragment {
                     + " must implement OnListFragmentInteractionListener");
         }
     }
+    public void addRecette(Recette recette){
+        adapter.add(recette);
+    }
 
     @Override
     public void onDetach() {
@@ -104,7 +109,12 @@ public class ListeRecetteActivityFragment extends Fragment {
     public static List<Recette> chargerListeRecette(Context context) {
         listRecettes = new ArrayList<Recette>();
         RecetteDAO recetteDAO = new RecetteDAO(context);
+        EtapeDAO etapeDAO = new EtapeDAO(context);
         listRecettes = recetteDAO.selectAll();
+        for(Recette recette : listRecettes) {
+            List<Etape> etapes= etapeDAO.selectAllByIdRecette(recette.getIdRecette());
+            recette.setEtapes(etapes);
+        }
         return listRecettes;
     }
 }

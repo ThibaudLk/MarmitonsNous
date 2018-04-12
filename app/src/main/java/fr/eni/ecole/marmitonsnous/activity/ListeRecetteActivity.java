@@ -3,23 +3,13 @@ package fr.eni.ecole.marmitonsnous.activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
-import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
 
-import fr.eni.ecole.marmitonsnous.DAO.RecetteDAO;
 import fr.eni.ecole.marmitonsnous.R;
-import fr.eni.ecole.marmitonsnous.adapter.RecetteAdapter;
 import fr.eni.ecole.marmitonsnous.beans.Recette;
 import fr.eni.ecole.marmitonsnous.fragment.DetailRecetteFragment;
 import fr.eni.ecole.marmitonsnous.fragment.ListeRecetteActivityFragment;
@@ -51,7 +41,7 @@ public class ListeRecetteActivity extends AppCompatActivity
         //noinspection SimplifiableIfStatement
         if (id == R.id.menu_add) {
             Intent intentAdd = new Intent(this, CreateRecetteActivity.class);
-            startActivity(intentAdd);
+            startActivityForResult(intentAdd,1);
             return true;
         }
 
@@ -73,6 +63,19 @@ public class ListeRecetteActivity extends AppCompatActivity
             Intent intent = new Intent(ListeRecetteActivity.this,DetailRecetteActivity.class);
             intent.putExtra("recette", (Serializable) recette);
             startActivity(intent);
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (resultCode == RESULT_OK && requestCode ==1) {
+             Recette recette =(Recette) data.getSerializableExtra("recette");
+            ListeRecetteActivityFragment listeRecetteActivityFragment = (ListeRecetteActivityFragment)getFragmentManager().findFragmentById(R.id.first);
+            listeRecetteActivityFragment.addRecette(recette);
+
+
+
+
         }
     }
 

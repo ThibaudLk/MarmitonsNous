@@ -1,22 +1,19 @@
 package fr.eni.ecole.marmitonsnous.fragment;
 
+import android.app.Fragment;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
-import android.app.Fragment;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
-import java.util.List;
-
 import fr.eni.ecole.marmitonsnous.R;
-import fr.eni.ecole.marmitonsnous.beans.Etape;
-import fr.eni.ecole.marmitonsnous.beans.Ingredient;
+import fr.eni.ecole.marmitonsnous.adapter.ListeEtapeAdapter;
 import fr.eni.ecole.marmitonsnous.beans.Recette;
+import fr.eni.ecole.marmitonsnous.component.NonScrollListView;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -38,6 +35,7 @@ public class DetailRecetteFragment extends Fragment {
 
     private OnFragmentInteractionListener mListener;
     private RecetteViewHolder holder;
+    ListeEtapeAdapter adapter;
 
     public DetailRecetteFragment() {
     }
@@ -103,6 +101,7 @@ public class DetailRecetteFragment extends Fragment {
         TextView viewTemps;
         TextView nbrePersonne;
         RatingBar difficulte;
+        NonScrollListView listViewEtape;
         //private List<Etape> etapes;
         //private List<Ingredient> ingredients;
         //private int photo;
@@ -113,12 +112,17 @@ public class DetailRecetteFragment extends Fragment {
             viewTemps = (TextView) getView().findViewById(R.id.txtTemps);
             nbrePersonne = (TextView) getView().findViewById(R.id.nbPersonnes);
             difficulte = (RatingBar) getView().findViewById(R.id.ratingDifficulte);
+            listViewEtape = (NonScrollListView) getView().findViewById(R.id.listeEtape);
+
         }
     }
 
     public void setRecetteInView(Recette recette) {
 
         holder = new RecetteViewHolder();
+
+        adapter = new ListeEtapeAdapter((Context) mListener, R.layout.add_etape_line_adapter ,recette.getEtapes());
+        holder.listViewEtape.setAdapter(adapter);
 
         holder.viewTitre.setText(recette.getTitre());
         holder.viewNote.setRating(recette.getNote());

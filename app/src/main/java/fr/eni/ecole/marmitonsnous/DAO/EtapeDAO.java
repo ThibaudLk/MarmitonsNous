@@ -137,6 +137,43 @@ public class EtapeDAO {
         return listEtape;
     }
 
+    public List<Etape> selectAllByIdRecette(int idRecette){
+        List<Etape> listEtape = new ArrayList<Etape>();
+
+        String[] tableColumns = new String[] {
+                COL_ID_ETAPE,
+                COL_NOM,
+                COL_NUMERO,
+                COL_ID_RECETTE,
+        };
+
+        //Where
+        String whereClause = COL_ID_RECETTE + " = ? ";
+
+        //Where args
+        String[] whereArgs = new String[] {
+                String.valueOf(idRecette)
+        };
+
+        Cursor c = db.query(TABLE_ETAPE,
+                tableColumns,
+                whereClause,
+                whereArgs,
+                null,
+                null,
+                COL_NUMERO);
+
+
+        while (c.moveToNext()) {
+            Etape etape = this.getEtape(c);
+            listEtape.add(etape);
+        };
+
+        c.close();
+
+        return listEtape;
+    }
+
     private Etape getEtape(Cursor c){
 
         Etape etape = new Etape(c.getInt(c.getColumnIndex(COL_ID_ETAPE.trim())),
