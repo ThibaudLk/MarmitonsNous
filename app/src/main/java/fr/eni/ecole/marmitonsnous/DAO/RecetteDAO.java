@@ -145,8 +145,6 @@ public class RecetteDAO {
                 COL_TEMPS,
                 COL_NBREPERSONNE,
                 COL_DIFFICULTE,
-                COL_ETAPE,
-                COL_INGREDIENT,
                 COL_PHOTO
         };
 

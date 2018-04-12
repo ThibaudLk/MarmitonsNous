@@ -71,13 +71,7 @@ public class ListeRecetteActivityFragment extends Fragment {
                     listViewRecette.setLayoutManager(new GridLayoutManager(context, mColumnCount));
                 }
 
-                if (listRecettes == null) {
-                    listRecettes = new ArrayList<Recette>();
-                    listRecettes.add(new Recette(1, "Le potimaron à la crème", 5f, 30, 2, 5f, R.drawable.ohzgour2));
-                    listRecettes.add(new Recette(2, "Grosse pizz", 4f, 5, 2, 3f, R.drawable.ohzgour2 ));
-                    listRecettes.add(new Recette(3, "Chili con carne", 2f, 8, 2, 1f, R.drawable.ohzgour2 ));
-                    listRecettes.add(new Recette(4, "La popotte de Marine", 3f, 5, 20, 2f, R.drawable.ohzgour2 ));
-                }
+                chargerListeRecette(context);
 
                 // on utilise un adapter pour afficher les items de la liste
                 RecetteAdapter adapter = new RecetteAdapter(listRecettes, mListener);

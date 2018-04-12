@@ -28,15 +28,10 @@ public class ListeRecetteActivity extends AppCompatActivity
         implements ListeRecetteActivityFragment.OnListFragmentInteractionListener, DetailRecetteFragment.OnFragmentInteractionListener {
 
     static final int ADD_RECETTE = 2;
-    List<Recette> listRecettes;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        RecyclerView listViewRecette = findViewById(R.id.listRecetteView);
-
-        ListeRecetteActivityFragment.chargerListeRecette(ListeRecetteActivity.this);
     }
 
     @Override
