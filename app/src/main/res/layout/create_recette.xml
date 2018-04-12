@@ -1,13 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
-    <ScrollView android:layout_height="fill_parent"
-        android:layout_width="fill_parent">
+    android:layout_height="wrap_content">
+
+    <ScrollView
+        android:id="@+id/scrollView"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent">
     <LinearLayout
+        android:id="@+id/infosRecette"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/creer"
+            style="@style/Titre.Large"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -28,7 +38,7 @@
         <RatingBar
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:numStars="4"
+            android:numStars="5"
             android:id="@+id/editNote"
             android:isIndicator="false"/>
 
@@ -70,43 +80,47 @@
             android:ems="10"
             android:id="@+id/editDifficulte" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="Etapes :" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="N° :" />
-
-        <EditText
+        <fr.eni.ecole.marmitonsnous.component.NonScrollListView
+            android:id="@+id/listeEtape"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="numberDecimal"
-            android:ems="10"
-            android:id="@+id/editNumero" />
+            android:nestedScrollingEnabled="true"
+            app:layout_constraintTop_toBottomOf="@+id/scrollView">
+        </fr.eni.ecole.marmitonsnous.component.NonScrollListView>
 
         <TextView
+            android:id="@+id/txtAddEtape"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="Informations de l'étape :" />
+            android:text="Ajouter une étape :"
+            app:layout_constraintTop_toBottomOf="@+id/listeEtape"/>
 
-        <EditText
+        <LinearLayout
+            android:id="@+id/layoutAddEtape"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/editInfoEtape" />
-
-
+            android:orientation="horizontal"
+            app:layout_constraintTop_toBottomOf="@+id/txtAddEtape">
+            <EditText
+                android:id="@+id/addDescriptionEtape"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.9"/>
+            <ImageButton
+                android:id="@+id/addEtape"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.1"
+                android:src="@android:drawable/ic_menu_add"/>
+        </LinearLayout>
         <Button
             android:id="@+id/uploadImage"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Ajouter une image"
-            android:elevation="10dp"/>
+            android:elevation="10dp"
+            app:layout_constraintTop_toBottomOf="@+id/layoutAddEtape"/>
     </LinearLayout>
     </ScrollView>
-</LinearLayout>
+</android.support.constraint.ConstraintLayout>

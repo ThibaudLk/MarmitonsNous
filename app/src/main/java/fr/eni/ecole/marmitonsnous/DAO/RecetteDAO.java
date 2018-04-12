@@ -91,9 +91,6 @@ public class RecetteDAO {
         for (Ingredient ingr : recette.getIngredients()) {
             values.put(COL_INGREDIENT, IngredientDAO.insert(ingr));
         }
-        for(Etape etape : recette.getEtapes()) {
-            values.put(COL_ETAPE,EtapeDAO.insert(etape));
-        }
         values.put(COL_PHOTO, recette.getPhoto());
 
         String whereClause = COL_ID_RECETTE + " = ? ";
@@ -148,8 +145,8 @@ public class RecetteDAO {
                 COL_TEMPS,
                 COL_NBREPERSONNE,
                 COL_DIFFICULTE,
-                /*COL_ETAPE,
-                COL_INGREDIENT,*/
+                COL_ETAPE,
+                COL_INGREDIENT,
                 COL_PHOTO
         };
 

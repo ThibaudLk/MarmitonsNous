@@ -9,8 +9,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import fr.eni.ecole.marmitonsnous.beans.Etape;
-import fr.eni.ecole.marmitonsnous.beans.Ingredient;
-import fr.eni.ecole.marmitonsnous.beans.Recette;
 import fr.eni.ecole.marmitonsnous.provider.GestionBddHelper;
 
 /**
@@ -23,9 +21,10 @@ public class EtapeDAO {
     private static SQLiteDatabase db;
     private GestionBddHelper helper;
 
-    public static String TABLE_ETAPE = "etape";
+    public static final String TABLE_ETAPE = "etape";
     public static final String COL_ID_ETAPE = "idEtape";
     public static final String COL_NOM = "nom";
+    public static final String COL_NUMERO = "numero";
     public static final String COL_ID_RECETTE = "idRecette";
 
     public static final String SQL_CREATE_TABLE =
@@ -34,7 +33,9 @@ public class EtapeDAO {
                     + COL_ID_ETAPE
                     + " INTEGER PRIMARY KEY AUTOINCREMENT , "
                     + COL_NOM
-                    + "VARCHAR(80), "
+                    + " VARCHAR(80), "
+                    + COL_NUMERO
+                    + " INT(2), "
                     + COL_ID_RECETTE
                     +" INT, "
                     + "FOREIGN KEY ("+ COL_ID_RECETTE +") REFERENCES " +
@@ -50,10 +51,11 @@ public class EtapeDAO {
         db = helper.getWritableDatabase();
     }
 
-    public static long insert(Etape etape)
+    public long insert(Etape etape)
     {
         ContentValues values = new ContentValues();
         values.put(COL_NOM, etape.getNom());
+        values.put(COL_NUMERO, etape.getNumero());
         values.put(COL_ID_RECETTE, etape.getIdRecette());
         return db.insert(TABLE_ETAPE,null,values);
     }
@@ -61,6 +63,7 @@ public class EtapeDAO {
     public long update(Etape etape) {
         ContentValues values = new ContentValues();
         values.put(COL_NOM, etape.getNom());
+        values.put(COL_NUMERO, etape.getNumero());
         values.put(COL_ID_RECETTE, etape.getIdRecette());
 
         String whereClause = COL_ID_ETAPE + " = ? ";
@@ -111,6 +114,7 @@ public class EtapeDAO {
         String[] tableColumns = new String[] {
                 COL_ID_ETAPE,
                 COL_NOM,
+                COL_NUMERO,
                 COL_ID_RECETTE,
         };
 
@@ -137,6 +141,7 @@ public class EtapeDAO {
 
         Etape etape = new Etape(c.getInt(c.getColumnIndex(COL_ID_ETAPE.trim())),
                 c.getString(c.getColumnIndex(COL_NOM)),
+                c.getInt(c.getColumnIndex(COL_NUMERO)),
                 c.getInt(c.getColumnIndex(COL_ID_RECETTE))
         );
 
