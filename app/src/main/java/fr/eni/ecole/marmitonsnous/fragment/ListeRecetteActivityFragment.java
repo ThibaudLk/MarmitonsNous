@@ -13,7 +13,9 @@ import android.view.ViewGroup;
 import java.util.ArrayList;
 import java.util.List;
 
+import fr.eni.ecole.marmitonsnous.DAO.RecetteDAO;
 import fr.eni.ecole.marmitonsnous.R;
+import fr.eni.ecole.marmitonsnous.activity.ListeRecetteActivity;
 import fr.eni.ecole.marmitonsnous.adapter.RecetteAdapter;
 import fr.eni.ecole.marmitonsnous.beans.Recette;
 
@@ -23,7 +25,7 @@ import fr.eni.ecole.marmitonsnous.beans.Recette;
 public class ListeRecetteActivityFragment extends Fragment {
 
     // Liste des recettes à afficher
-    List<Recette> listRecettes;
+    static List<Recette> listRecettes;
 
     // Nom d'un argument lié au fragment.
     private static final String ARG_COLUMN_COUNT = "column-count";
@@ -74,13 +76,13 @@ public class ListeRecetteActivityFragment extends Fragment {
                     listRecettes.add(new Recette(1, "Le potimaron à la crème", 5f, 30, 2, 5f, R.drawable.ohzgour2));
                     listRecettes.add(new Recette(2, "Grosse pizz", 4f, 5, 2, 3f, R.drawable.ohzgour2 ));
                     listRecettes.add(new Recette(3, "Chili con carne", 2f, 8, 2, 1f, R.drawable.ohzgour2 ));
+                    listRecettes.add(new Recette(4, "La popotte de Marine", 3f, 5, 20, 2f, R.drawable.ohzgour2 ));
                 }
 
                 // on utilise un adapter pour afficher les items de la liste
                 RecetteAdapter adapter = new RecetteAdapter(listRecettes, mListener);
                 listViewRecette.setAdapter(adapter);
             }
-
             return view;
     }
 
@@ -103,5 +105,12 @@ public class ListeRecetteActivityFragment extends Fragment {
 
     public interface OnListFragmentInteractionListener {
         void onListFragmentInteraction(Recette recette);
+    }
+
+    public static List<Recette> chargerListeRecette(Context context) {
+        listRecettes = new ArrayList<Recette>();
+        RecetteDAO recetteDAO = new RecetteDAO(context);
+        listRecettes = recetteDAO.selectAll();
+        return listRecettes;
     }
 }

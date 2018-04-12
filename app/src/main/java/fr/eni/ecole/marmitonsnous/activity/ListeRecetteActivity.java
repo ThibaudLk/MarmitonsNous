@@ -17,6 +17,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import fr.eni.ecole.marmitonsnous.DAO.RecetteDAO;
 import fr.eni.ecole.marmitonsnous.R;
 import fr.eni.ecole.marmitonsnous.adapter.RecetteAdapter;
 import fr.eni.ecole.marmitonsnous.beans.Recette;
@@ -27,12 +28,15 @@ public class ListeRecetteActivity extends AppCompatActivity
         implements ListeRecetteActivityFragment.OnListFragmentInteractionListener, DetailRecetteFragment.OnFragmentInteractionListener {
 
     static final int ADD_RECETTE = 2;
-
+    List<Recette> listRecettes;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        RecyclerView listViewRecette = findViewById(R.id.listRecetteView);
+
+        ListeRecetteActivityFragment.chargerListeRecette(ListeRecetteActivity.this);
     }
 
     @Override
@@ -81,4 +85,6 @@ public class ListeRecetteActivity extends AppCompatActivity
     public void onFragmentInteraction(Uri uri) {
 
     }
+
+
 }
